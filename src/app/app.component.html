@@ -1,1 +1,37 @@
-<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+<div class="app-container">
+  <mat-toolbar class="toolbar">
+    <span class="logo">{{ title }}</span>
+    <span class="spacer"></span>
+    <button mat-button>Get Started</button>
+  </mat-toolbar>
+
+  <main class="main-content">
+    <div class="hero-section">
+      <h1>Simple Wallet Management</h1>
+      <p class="subtitle">
+        Track your expenses across multiple wallets in one clean interface
+      </p>
+      <button mat-flat-button color="primary" class="cta-button">
+        Start Tracking
+      </button>
+    </div>
+
+    <div class="features-preview">
+      <div class="feature-card">
+        <mat-icon>account_balance_wallet</mat-icon>
+        <h3>Multiple Wallets</h3>
+        <p>Manage all your wallets in one place</p>
+      </div>
+      <div class="feature-card">
+        <mat-icon>swap_horiz</mat-icon>
+        <h3>Easy Transfers</h3>
+        <p>Track transfers between wallets</p>
+      </div>
+      <div class="feature-card">
+        <mat-icon>bar_chart</mat-icon>
+        <h3>Simple Analytics</h3>
+        <p>Clear insights into your spending</p>
+      </div>
+    </div>
+  </main>
+</div>
