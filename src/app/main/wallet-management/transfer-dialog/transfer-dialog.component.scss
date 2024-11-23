@@ -1,0 +1,16 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.same-wallet-error {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: -8px;
+  margin-bottom: 8px;
+}

@@ -1,0 +1,74 @@
+<div class="wallet-management">
+  <div class="header">
+    <h1>Wallet Management</h1>
+    <div class="actions">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openCreateWalletDialog()"
+      >
+        <mat-icon>add</mat-icon>
+        New Wallet
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="openTransferDialog()"
+        [disabled]="wallets.length < 2"
+      >
+        <mat-icon>swap_horiz</mat-icon>
+        Transfer
+      </button>
+    </div>
+  </div>
+
+  <div class="wallets-grid">
+    <mat-card *ngFor="let wallet of wallets" class="wallet-card">
+      <mat-card-content>
+        <div class="wallet-icon">
+          <mat-icon>account_balance_wallet</mat-icon>
+        </div>
+        <h2>{{ wallet.name }}</h2>
+        <p class="balance">${{ wallet.balance.toLocaleString() }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="transfer-history">
+    <h2>Transfer History</h2>
+    <mat-card class="transfer-card">
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let transfer">
+              {{ transfer.date | date }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fromWallet">
+            <th mat-header-cell *matHeaderCellDef>From</th>
+            <td mat-cell *matCellDef="let transfer">
+              {{ transfer.fromWallet }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="toWallet">
+            <th mat-header-cell *matHeaderCellDef>To</th>
+            <td mat-cell *matCellDef="let transfer">{{ transfer.toWallet }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let transfer">
+              ${{ transfer.amount.toLocaleString() }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

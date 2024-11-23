@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Create New Wallet</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="walletForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Wallet Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter wallet name" />
+      <mat-error *ngIf="walletForm.get('name')?.hasError('required')">
+        Wallet name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Initial Balance</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="initialBalance"
+        placeholder="Enter initial balance"
+      />
+      <mat-error *ngIf="walletForm.get('initialBalance')?.hasError('required')">
+        Initial balance is required
+      </mat-error>
+      <mat-error *ngIf="walletForm.get('initialBalance')?.hasError('min')">
+        Balance cannot be negative
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="!walletForm.valid"
+  >
+    Create
+  </button>
+</mat-dialog-actions>

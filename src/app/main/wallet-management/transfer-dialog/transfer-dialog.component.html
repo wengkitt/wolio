@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>Transfer Money</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="transferForm">
+    <mat-form-field appearance="outline">
+      <mat-label>From Wallet</mat-label>
+      <mat-select formControlName="fromWalletId">
+        <mat-option *ngFor="let wallet of data.wallets" [value]="wallet.id">
+          {{ wallet.name }} - ${{ wallet.balance }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="transferForm.get('fromWalletId')?.hasError('required')">
+        Please select a wallet
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>To Wallet</mat-label>
+      <mat-select formControlName="toWalletId">
+        <mat-option *ngFor="let wallet of data.wallets" [value]="wallet.id">
+          {{ wallet.name }} - ${{ wallet.balance }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="transferForm.get('toWalletId')?.hasError('required')">
+        Please select a wallet
+      </mat-error>
+    </mat-form-field>
+
+    <mat-error
+      *ngIf="transferForm.hasError('sameWallet')"
+      class="same-wallet-error"
+    >
+      Please select different wallets
+    </mat-error>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="amount"
+        placeholder="Enter amount"
+      />
+      <mat-error *ngIf="transferForm.get('amount')?.hasError('required')">
+        Amount is required
+      </mat-error>
+      <mat-error *ngIf="transferForm.get('amount')?.hasError('min')">
+        Amount must be greater than 0
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="!transferForm.valid"
+  >
+    Transfer
+  </button>
+</mat-dialog-actions>

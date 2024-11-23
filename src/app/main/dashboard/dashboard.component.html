@@ -1,0 +1,38 @@
+<div class="dashboard-content">
+  <h1>Dashboard Overview</h1>
+
+  <div class="summary-cards">
+    <mat-card *ngFor="let card of summaryCards" class="summary-card">
+      <mat-card-content>
+        <div class="card-header">
+          <mat-icon>{{ card.icon }}</mat-icon>
+          <span class="trend">{{ card.trend }}</span>
+        </div>
+        <h2>{{ card.value }}</h2>
+        <p>{{ card.title }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="charts-section">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Recent Transactions</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="placeholder-text">
+          Transaction history will be displayed here
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Spending Analytics</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="placeholder-text">Spending charts will be displayed here</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

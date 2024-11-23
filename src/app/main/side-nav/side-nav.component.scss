@@ -1,0 +1,58 @@
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidenav-header {
+  padding: 16px;
+  margin-bottom: 0.5em;
+
+  h2 {
+    margin-left: 0.5em;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-top: 0.1em;
+    font-size: 24px;
+    font-weight: 400;
+    color: #333;
+  }
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: #1976d2;
+
+  mat-icon {
+    color: #1976d2;
+  }
+}
+
+mat-nav-list {
+  padding-top: 0;
+  padding: 16px;
+  flex-grow: 1;
+
+  a {
+    margin-bottom: 0.5em;
+  }
+}
+
+.logout-container {
+  padding: 16px;
+  border-top: 1px solid #eee;
+  background-color: #fafafa;
+  margin-top: auto;
+
+  button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    mat-icon {
+      margin-right: 4px;
+    }
+  }
+}

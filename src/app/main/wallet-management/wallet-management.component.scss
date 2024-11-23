@@ -1,0 +1,88 @@
+.wallet-management {
+  padding: 24px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+      color: #333;
+      font-weight: 400;
+    }
+
+    .actions {
+      display: flex;
+      gap: 16px;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+  }
+
+  .wallets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .wallet-card {
+    text-align: center;
+    padding: 24px;
+    background: #faf9fd;
+
+    .wallet-icon {
+      margin-bottom: 16px;
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        color: #1976d2;
+      }
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      color: #333;
+      font-weight: 400;
+    }
+
+    .balance {
+      font-size: 24px;
+      color: #1976d2;
+      margin: 0;
+    }
+  }
+
+  .transfer-history {
+    .transfer-card {
+      background: #faf9fd;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: #333;
+      font-weight: 400;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    th.mat-header-cell {
+      color: #666;
+      font-weight: 500;
+    }
+
+    td.mat-cell {
+      color: #333;
+    }
+  }
+}
