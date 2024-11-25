@@ -1,0 +1,98 @@
+.debt-detail-container {
+  padding: 24px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+      color: #333;
+      font-weight: 400;
+    }
+  }
+}
+
+.overview-section {
+  margin-bottom: 24px;
+
+  mat-card {
+    background: #faf9fd;
+  }
+
+  .amounts {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    .amount-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+
+      .label {
+        font-size: 0.875rem;
+        color: #666;
+      }
+
+      .value {
+        font-size: 1.5rem;
+        color: #333;
+
+        &.remaining {
+          color: #d32f2f;
+        }
+
+        &.paid {
+          color: #388e3c;
+        }
+      }
+    }
+  }
+
+  .progress-section {
+    margin-bottom: 24px;
+
+    mat-progress-bar {
+      margin-bottom: 8px;
+    }
+
+    .progress-label {
+      font-size: 0.875rem;
+      color: #666;
+    }
+  }
+
+  .payment-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+.payments-section {
+  h2 {
+    margin: 0 0 16px;
+    color: #333;
+    font-weight: 400;
+  }
+
+  mat-card {
+    background: #faf9fd;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .no-payments {
+    text-align: center;
+    padding: 24px;
+    color: #666;
+  }
+}

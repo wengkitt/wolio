@@ -1,0 +1,108 @@
+<div class="transactions-container">
+  <div class="wallets-overview">
+    <h2>Wallets Overview</h2>
+    <div class="wallets-grid">
+      <mat-card *ngFor="let wallet of wallets" class="wallet-card">
+        <mat-card-content>
+          <div class="wallet-icon">
+            <mat-icon>account_balance_wallet</mat-icon>
+          </div>
+          <h3>{{ wallet.name }}</h3>
+          <p class="balance">${{ wallet.balance.toLocaleString() }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="transactions-list">
+    <div class="section-header">
+      <h2>Transaction History</h2>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openTransactionDialog()"
+      >
+        <mat-icon>add</mat-icon>
+        Add Transaction
+      </button>
+    </div>
+
+    <mat-card>
+      <mat-card-content>
+        <table mat-table [dataSource]="transactions">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let transaction">
+              {{ transaction.date | date : "medium" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td
+              mat-cell
+              *matCellDef="let transaction"
+              [class.expense]="transaction.type === 'expense'"
+              [class.income]="transaction.type === 'income'"
+            >
+              {{ transaction.type | titlecase }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let transaction">
+              {{ transaction.description }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="wallet">
+            <th mat-header-cell *matHeaderCellDef>Wallet</th>
+            <td mat-cell *matCellDef="let transaction">
+              {{ transaction.walletName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td
+              mat-cell
+              *matCellDef="let transaction"
+              [class.expense]="transaction.type === 'expense'"
+              [class.income]="transaction.type === 'income'"
+            >
+              {{ transaction.type === "expense" ? "-" : "+" }}${{
+                transaction.amount.toLocaleString()
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let transaction">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="openTransactionDialog(transaction)"
+                >
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button mat-menu-item (click)="deleteTransaction(transaction)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

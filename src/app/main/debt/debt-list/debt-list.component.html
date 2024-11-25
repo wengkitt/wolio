@@ -1,0 +1,55 @@
+<div class="debt-list-container">
+  <div class="header">
+    <h1>Debt Tracking</h1>
+    <button mat-raised-button color="primary" (click)="openCreateDebtDialog()">
+      <mat-icon>add</mat-icon>
+      Add Debt Item
+    </button>
+  </div>
+
+  <div class="debt-grid">
+    <mat-card
+      *ngFor="let debt of debts"
+      class="debt-card"
+      (click)="viewDebtDetails(debt.id)"
+    >
+      <mat-card-content>
+        <div class="debt-header">
+          <h2>{{ debt.name }}</h2>
+          <span class="date">{{ debt.createdAt | date }}</span>
+        </div>
+
+        <div class="amounts">
+          <div class="amount-item">
+            <span class="label">Total</span>
+            <span class="value">${{ debt.totalAmount | number }}</span>
+          </div>
+          <div class="amount-item">
+            <span class="label">Remaining</span>
+            <span class="value remaining"
+              >${{ debt.remainingAmount | number }}</span
+            >
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <mat-progress-bar
+            mode="determinate"
+            [value]="calculateProgress(debt)"
+          ></mat-progress-bar>
+          <span class="progress-label">
+            {{ calculateProgress(debt) | number : "1.0-0" }}% paid
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="debts.length === 0" class="empty-state">
+    <mat-icon>payments</mat-icon>
+    <p>No debt items yet</p>
+    <button mat-raised-button color="primary" (click)="openCreateDebtDialog()">
+      Add Your First Debt Item
+    </button>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<h2 mat-dialog-title>{{ data.isEdit ? "Edit" : "Add" }} Transaction</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="transactionForm">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Transaction Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="expense">Expense</mat-option>
+          <mat-option value="income">Income</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="amount"
+          placeholder="Enter amount"
+        />
+        <mat-error
+          *ngIf="
+            transactionForm.get('amount')?.hasError('required') ||
+            transactionForm.get('amount')?.hasError('min')
+          "
+        >
+          Please enter a valid amount greater than 0
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input
+        matInput
+        formControlName="description"
+        placeholder="Enter description (optional)"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Select Wallet</mat-label>
+      <mat-select formControlName="walletId">
+        <mat-option *ngFor="let wallet of data.wallets" [value]="wallet.id">
+          {{ wallet.name }} - ${{ wallet.balance }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="transactionForm.get('walletId')?.hasError('required')">
+        Please select a wallet
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Transaction Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="transactionForm.get('date')?.hasError('required')">
+        Please select a date
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="!transactionForm.valid"
+  >
+    {{ data.isEdit ? "Update" : "Add" }} Transaction
+  </button>
+</mat-dialog-actions>

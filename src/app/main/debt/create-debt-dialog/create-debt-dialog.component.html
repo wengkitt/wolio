@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Add New Debt Item</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="debtForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Debt Name</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Enter a name for this debt"
+      />
+      <mat-error *ngIf="debtForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+      <mat-error *ngIf="debtForm.get('name')?.hasError('minlength')">
+        Name must be at least 3 characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Total Amount</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="amount"
+        placeholder="Enter the total debt amount"
+      />
+      <mat-error
+        *ngIf="
+          debtForm.get('amount')?.hasError('required') ||
+          debtForm.get('amount')?.hasError('min')
+        "
+      >
+        Please enter a valid amount greater than 0
+      </mat-error>
+      <mat-error *ngIf="debtForm.get('amount')?.hasError('max')">
+        Amount cannot exceed $1,000,000
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="!debtForm.valid"
+  >
+    Create
+  </button>
+</mat-dialog-actions>

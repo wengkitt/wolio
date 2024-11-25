@@ -15,3 +15,13 @@ body {
   color: #333 !important;
   border-bottom: 1px solid #eee;
 }
+
+.error-snackbar {
+  background: #d32f2f;
+  color: white;
+}
+
+.success-snackbar {
+  background: #388e3c;
+  color: white;
+}

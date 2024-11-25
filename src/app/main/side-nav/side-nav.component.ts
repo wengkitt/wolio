@@ -7,6 +7,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
+  standalone: true,
   imports: [
     CommonModule,
     RouterLink,
@@ -21,17 +22,14 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 export class SideNavComponent {
   menuItems = [
     { icon: 'dashboard', label: 'Dashboard', route: '/app/dashboard' },
-    {
-      icon: 'account_balance_wallet',
-      label: 'Wallets',
-      route: '/app/wallets',
-    },
+    { icon: 'receipt_long', label: 'Transactions', route: '/app/transactions' },
+    { icon: 'payments', label: 'Debts', route: '/app/debts' },
+    { icon: 'account_balance_wallet', label: 'Wallets', route: '/app/wallets' },
   ];
 
   constructor(private router: Router) {}
 
   logout() {
-    // TODO: Implement actual logout logic (clear session, tokens, etc.)
     this.router.navigate(['/']);
   }
 }

@@ -1,0 +1,93 @@
+<div class="debt-detail-container">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>{{ debt?.name }}</h1>
+  </div>
+
+  <div class="overview-section">
+    <mat-card>
+      <mat-card-content>
+        <div class="amounts">
+          <div class="amount-item">
+            <span class="label">Total Debt</span>
+            <span class="value">${{ debt?.totalAmount | number }}</span>
+          </div>
+          <div class="amount-item">
+            <span class="label">Remaining</span>
+            <span class="value remaining"
+              >${{ debt?.remainingAmount | number }}</span
+            >
+          </div>
+          <div class="amount-item">
+            <span class="label">Paid</span>
+            <span class="value paid"
+              >${{
+                (debt?.totalAmount || 0) - (debt?.remainingAmount || 0) | number
+              }}</span
+            >
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <mat-progress-bar
+            mode="determinate"
+            [value]="calculateProgress()"
+          ></mat-progress-bar>
+          <span class="progress-label">
+            {{ calculateProgress() | number : "1.0-0" }}% paid
+          </span>
+        </div>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="payment-button"
+          (click)="openPaymentDialog()"
+          [disabled]="!debt?.remainingAmount"
+        >
+          <mat-icon>add</mat-icon>
+          Add Payment
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="payments-section">
+    <h2>Payment History</h2>
+    <mat-card>
+      <mat-card-content>
+        <table mat-table [dataSource]="payments">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let payment">
+              {{ payment.date | date : "medium" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let payment">
+              ${{ payment.amount | number }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="note">
+            <th mat-header-cell *matHeaderCellDef>Note</th>
+            <td mat-cell *matCellDef="let payment">
+              {{ payment.note || "No note" }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <div *ngIf="payments.length === 0" class="no-payments">
+          <p>No payments recorded yet</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
