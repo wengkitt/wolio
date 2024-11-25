@@ -21,10 +21,18 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class SideNavComponent {
   menuItems = [
-    { icon: 'dashboard', label: 'Dashboard', route: '/app/dashboard' },
-    { icon: 'receipt_long', label: 'Transactions', route: '/app/transactions' },
-    { icon: 'payments', label: 'Debts', route: '/app/debts' },
-    { icon: 'account_balance_wallet', label: 'Wallets', route: '/app/wallets' },
+    { icon: 'dashboard', label: 'Dashboard', route: '/main/dashboard' },
+    {
+      icon: 'receipt_long',
+      label: 'Transactions',
+      route: '/main/transactions',
+    },
+    { icon: 'payments', label: 'Debts', route: '/main/debts' },
+    {
+      icon: 'account_balance_wallet',
+      label: 'Wallets',
+      route: '/main/wallets',
+    },
   ];
 
   constructor(private router: Router) {}
