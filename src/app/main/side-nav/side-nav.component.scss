@@ -2,47 +2,61 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-color: #ffffff;
 }
 
 .sidenav-header {
-  padding: 16px;
-  margin-bottom: 0.5em;
+  padding: 24px;
+  margin-bottom: 8px;
 
   h2 {
-    margin-left: 0.5em;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-top: 0.1em;
-    font-size: 24px;
-    font-weight: 400;
-    color: #333;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    letter-spacing: -0.5px;
   }
 }
 
 .active-link {
-  background-color: rgba(0, 0, 0, 0.04);
-  color: #1976d2;
+  background-color: #f1f5f9 !important;
+  color: #6366f1 !important;
+  border-radius: 12px;
 
   mat-icon {
-    color: #1976d2;
+    color: #6366f1 !important;
   }
 }
 
 mat-nav-list {
-  padding-top: 0;
-  padding: 16px;
+  padding: 12px;
   flex-grow: 1;
 
   a {
-    margin-bottom: 0.5em;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    height: 48px !important;
+
+    &:hover {
+      background-color: #f8fafc !important;
+    }
+
+    mat-icon {
+      margin-right: 12px;
+      color: #64748b;
+    }
+
+    span {
+      font-weight: 500;
+      color: #334155;
+    }
   }
 }
 
 .logout-container {
-  padding: 16px;
-  border-top: 1px solid #eee;
-  background-color: #fafafa;
-  margin-top: auto;
+  padding: 24px;
+  border-top: 1px solid #e2e8f0;
+  background-color: #ffffff;
 
   button {
     width: 100%;
@@ -50,6 +64,9 @@ mat-nav-list {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    height: 48px;
+    border-radius: 12px;
+    font-weight: 500;
 
     mat-icon {
       margin-right: 4px;
