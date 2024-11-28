@@ -14,6 +14,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    RouterLink,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -24,6 +25,6 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   shouldShowNavbar(): boolean {
-    return !this.router.url.includes('/app');
+    return !this.router.url.includes('/main');
   }
 }
