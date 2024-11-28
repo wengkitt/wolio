@@ -12,9 +12,32 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
-import { ChartConfiguration, ChartData } from 'chart.js';
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartConfiguration,
+  ChartData,
+  BarController,
+} from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { TransactionDialogComponent } from './transaction-dialog/transaction-dialog.component';
+
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  BarController,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface Transaction {
   id: string;
@@ -34,7 +57,7 @@ interface Wallet {
 
 @Component({
   selector: 'app-transactions',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatCardModule,
@@ -55,6 +78,44 @@ interface Wallet {
 })
 export class TransactionsComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
+  chartData: ChartData = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Income',
+        data: [],
+        backgroundColor: '#4caf50',
+      },
+      {
+        label: 'Expenses',
+        data: [],
+        backgroundColor: '#f44336',
+      },
+    ],
+  };
+
+  chartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    scales: {
+      x: {
+        type: 'category', // Explicit x-axis scale type
+      },
+      y: {
+        type: 'linear', // Explicit y-axis scale type
+        beginAtZero: true,
+        ticks: {
+          callback: (value) => `$${value}`,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+    },
+  };
 
   transactions: Transaction[] = [
     {
@@ -153,6 +214,12 @@ export class TransactionsComponent implements OnInit {
   wallets: Wallet[] = [
     { id: '1', name: 'Main Wallet', balance: 5000 },
     { id: '2', name: 'Savings', balance: 7500 },
+    { id: '3', name: 'Main Wallet', balance: 5000 },
+    { id: '4', name: 'Savings', balance: 7500 },
+    { id: '5', name: 'Main Wallet', balance: 5000 },
+    { id: '6', name: 'Savings', balance: 7500 },
+    { id: '7', name: 'Main Wallet', balance: 5000 },
+    { id: '8', name: 'Savings', balance: 7500 },
   ];
 
   displayedColumns: string[] = [
@@ -165,41 +232,7 @@ export class TransactionsComponent implements OnInit {
   ];
 
   filterForm: FormGroup;
-  selectedRange = 'custom';
-
-  chartData: ChartData = {
-    labels: [],
-    datasets: [
-      {
-        label: 'Income',
-        data: [],
-        backgroundColor: '#4caf50',
-      },
-      {
-        label: 'Expenses',
-        data: [],
-        backgroundColor: '#f44336',
-      },
-    ],
-  };
-
-  chartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          callback: (value) => `$${value}`,
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
-      },
-    },
-  };
+  selectedRange = 'month';
 
   constructor(
     private dialog: MatDialog,

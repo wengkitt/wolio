@@ -14,7 +14,7 @@
         mat-raised-button
         color="accent"
         (click)="openTransferDialog()"
-        [disabled]="wallets.length < 2"
+        [disabled]="wallets().length < 2"
       >
         <mat-icon>swap_horiz</mat-icon>
         Transfer
@@ -23,7 +23,7 @@
   </div>
 
   <div class="wallets-grid">
-    <mat-card *ngFor="let wallet of wallets" class="wallet-card">
+    <mat-card *ngFor="let wallet of wallets()" class="wallet-card">
       <mat-card-content>
         <div class="wallet-icon">
           <mat-icon>account_balance_wallet</mat-icon>

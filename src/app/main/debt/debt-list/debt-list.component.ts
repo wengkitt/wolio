@@ -19,7 +19,7 @@ export interface DebtItem {
 
 @Component({
   selector: 'app-debt-list',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatCardModule,

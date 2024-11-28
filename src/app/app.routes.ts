@@ -1,28 +1,59 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { DashboardComponent } from './main/dashboard/dashboard.component';
-import { DebtDetailComponent } from './main/debt/debt-detail/debt-detail.component';
-import { DebtListComponent } from './main/debt/debt-list/debt-list.component';
-import { MainComponent } from './main/main.component';
-import { TransactionsComponent } from './main/transactions/transactions.component';
-import { WalletManagementComponent } from './main/wallet-management/wallet-management.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./auth/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('./auth/signup/signup.component').then((m) => m.SignupComponent),
+  },
   {
     path: 'main',
-    component: MainComponent,
+    loadComponent: () =>
+      import('./main/main.component').then((m) => m.MainComponent),
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'wallets', component: WalletManagementComponent },
-      { path: 'transactions', component: TransactionsComponent },
-      { path: 'debts', component: DebtListComponent },
-      { path: 'debts/:id', component: DebtDetailComponent },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./main/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
+      {
+        path: 'wallets',
+        loadComponent: () =>
+          import('./main/wallet-management/wallet-management.component').then(
+            (m) => m.WalletManagementComponent
+          ),
+      },
+      {
+        path: 'transactions',
+        loadComponent: () =>
+          import('./main/transactions/transactions.component').then(
+            (m) => m.TransactionsComponent
+          ),
+      },
+      {
+        path: 'debts',
+        loadComponent: () =>
+          import('./main/debt/debt-list/debt-list.component').then(
+            (m) => m.DebtListComponent
+          ),
+      },
+      {
+        path: 'debts/:id',
+        loadComponent: () =>
+          import('./main/debt/debt-detail/debt-detail.component').then(
+            (m) => m.DebtDetailComponent
+          ),
+      },
     ],
   },
 ];

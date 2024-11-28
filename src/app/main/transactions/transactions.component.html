@@ -1,80 +1,45 @@
 <div class="transactions-container">
-  <div class="chart-section">
-    <mat-card>
-      <mat-card-content>
-        <div class="filter-controls">
-          <mat-button-toggle-group
-            [value]="selectedRange"
-            (change)="setDateRange($event.value)"
-          >
-            <mat-button-toggle value="week">Week</mat-button-toggle>
-            <mat-button-toggle value="month">Month</mat-button-toggle>
-            <mat-button-toggle value="year">Year</mat-button-toggle>
-            <mat-button-toggle value="custom">Custom</mat-button-toggle>
-          </mat-button-toggle-group>
-
-          <form
-            [formGroup]="filterForm"
-            class="date-range"
-            *ngIf="selectedRange === 'custom'"
-          >
-            <mat-form-field appearance="outline">
-              <mat-label>Start Date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="startPicker"
-                formControlName="startDate"
-                (dateChange)="applyFilter()"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="startPicker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #startPicker></mat-datepicker>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>End Date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="endPicker"
-                formControlName="endDate"
-                (dateChange)="applyFilter()"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="endPicker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #endPicker></mat-datepicker>
-            </mat-form-field>
-          </form>
-        </div>
-
-        <div class="chart-container">
-          <canvas
-            baseChart
-            [data]="chartData"
-            [options]="chartOptions"
-            type="bar"
-          >
-          </canvas>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <div class="wallets-overview">
+  <div class="transactions-container">
     <h2>Wallets Overview</h2>
-    <div class="wallets-grid">
-      <mat-card *ngFor="let wallet of wallets" class="wallet-card">
-        <mat-card-content>
-          <div class="wallet-icon">
-            <mat-icon>account_balance_wallet</mat-icon>
-          </div>
-          <h3>{{ wallet.name }}</h3>
-          <p class="balance">${{ wallet.balance.toLocaleString() }}</p>
-        </mat-card-content>
-      </mat-card>
+    <div class="wallets-chart-container">
+      <div class="wallets-overview">
+        <div class="wallets-grid">
+          <mat-card *ngFor="let wallet of wallets" class="wallet-card">
+            <mat-card-content>
+              <div class="wallet-icon">
+                <mat-icon>account_balance_wallet</mat-icon>
+              </div>
+              <h3>{{ wallet.name }}</h3>
+              <p class="balance">${{ wallet.balance.toLocaleString() }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="chart-section">
+        <mat-card>
+          <mat-card-content>
+            <div class="filter-controls">
+              <mat-button-toggle-group
+                [value]="selectedRange"
+                (change)="setDateRange($event.value)"
+              >
+                <mat-button-toggle value="week">Week</mat-button-toggle>
+                <mat-button-toggle value="month">Month</mat-button-toggle>
+                <mat-button-toggle value="year">Year</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+
+            <div class="chart-container">
+              <canvas
+                baseChart
+                [data]="chartData"
+                [options]="chartOptions"
+                type="bar"
+              ></canvas>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
   </div>
 

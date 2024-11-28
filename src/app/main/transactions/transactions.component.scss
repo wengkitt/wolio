@@ -3,40 +3,55 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
 
-.chart-section {
-  mat-card {
-    background: #faf9fd;
-  }
-
-  .filter-controls {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 24px;
-    align-items: flex-start;
-
-    .date-range {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-
-      mat-form-field {
-        width: 200px;
-      }
-    }
-  }
-
-  .chart-container {
-    height: 300px;
-  }
-}
-
-.wallets-overview {
   h2 {
-    margin: 0 0 16px;
+    margin: 0;
     color: #333;
     font-weight: 400;
+  }
+}
+
+.wallets-chart-container {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  width: 100%; // Ensure full width for the container
+
+  .wallets-overview {
+    flex: 1.5; // Make the wallet grid take up more space
+  }
+
+  .chart-section {
+    flex: 1.5; // Make the chart section smaller
+    mat-card {
+      background: #faf9fd;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%; // Ensures the chart card is the same height as the wallet cards
+    }
+
+    .filter-controls {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+
+      .date-range {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+
+        mat-form-field {
+          width: 200px;
+        }
+      }
+    }
+
+    .chart-container {
+      height: 300px; // Fixed height for the chart
+      flex-grow: 1; // Makes the chart container grow to fill the available space
+    }
   }
 }
 
@@ -44,12 +59,21 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
+  padding-bottom: 5px;
+
+  // Restricting the grid to only 2 rows and enabling scroll
+  max-height: calc(2 * 200px); /* 2 rows of 200px each + 16px for the gap */
+  overflow-y: auto; /* Enable vertical scroll when there are more than 2 rows */
 }
 
 .wallet-card {
   text-align: center;
   padding: 16px;
   background: #faf9fd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; // Ensures all wallet cards have equal height
 
   .wallet-icon {
     margin-bottom: 8px;
@@ -125,6 +149,31 @@
   text-align: center;
   padding: 24px;
   color: #666;
+}
+
+@media (max-width: 768px) {
+  .wallets-chart-container {
+    flex-direction: column;
+
+    .chart-section {
+      width: 100%;
+    }
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    align-items: stretch !important;
+
+    .date-range {
+      mat-form-field {
+        width: 100% !important;
+      }
+    }
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (max-width: 600px) {

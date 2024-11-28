@@ -7,7 +7,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
-  standalone: true,
+
   imports: [
     CommonModule,
     RouterLink,
@@ -27,7 +27,7 @@ export class SideNavComponent {
       label: 'Transactions',
       route: '/main/transactions',
     },
-    { icon: 'payments', label: 'Debts', route: '/main/debts' },
+    // { icon: 'payments', label: 'Debts', route: '/main/debts' },
     {
       icon: 'account_balance_wallet',
       label: 'Wallets',

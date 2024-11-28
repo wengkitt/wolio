@@ -22,7 +22,6 @@ interface DialogData {
 
 @Component({
   selector: 'app-transfer-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,

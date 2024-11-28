@@ -20,7 +20,7 @@ interface PaymentTransaction {
 
 @Component({
   selector: 'app-debt-detail',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatCardModule,
