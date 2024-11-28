@@ -7,7 +7,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
-  standalone: true,
+
   imports: [
     CommonModule,
     RouterLink,

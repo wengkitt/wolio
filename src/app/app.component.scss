@@ -3,22 +3,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 64px;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}

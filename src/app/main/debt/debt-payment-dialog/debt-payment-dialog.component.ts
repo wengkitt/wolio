@@ -21,7 +21,7 @@ interface DialogData {
 
 @Component({
   selector: 'app-debt-payment-dialog',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatDialogModule,

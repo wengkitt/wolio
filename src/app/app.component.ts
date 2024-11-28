@@ -7,11 +7,10 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
+
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLink,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

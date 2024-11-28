@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-debt-dialog',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatDialogModule,

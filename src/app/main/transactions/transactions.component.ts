@@ -34,7 +34,7 @@ interface Wallet {
 
 @Component({
   selector: 'app-transactions',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatCardModule,

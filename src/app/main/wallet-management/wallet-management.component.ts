@@ -24,7 +24,7 @@ interface Transfer {
 
 @Component({
   selector: 'app-wallet-management',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatCardModule,
@@ -37,10 +37,10 @@ interface Transfer {
   styleUrl: './wallet-management.component.scss',
 })
 export class WalletManagementComponent {
-  wallets: Wallet[] = [
+  wallets = signal<Wallet[]>([
     { id: '1', name: 'Main Wallet', balance: 5000 },
     { id: '2', name: 'Savings', balance: 7500 },
-  ];
+  ]);
 
   transfers = signal<Transfer[]>([
     {
@@ -65,11 +65,14 @@ export class WalletManagementComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.wallets.push({
-          id: (this.wallets.length + 1).toString(),
-          name: result.name,
-          balance: result.initialBalance,
-        });
+        this.wallets.update((currentWallets) => [
+          {
+            id: (currentWallets.length + 1).toString(),
+            name: result.name,
+            balance: result.initialBalance,
+          },
+          ...currentWallets,
+        ]);
       }
     });
   }
@@ -77,16 +80,16 @@ export class WalletManagementComponent {
   openTransferDialog() {
     const dialogRef = this.dialog.open(TransferDialogComponent, {
       width: '400px',
-      data: { wallets: this.wallets },
+      data: { wallets: this.wallets() },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Update wallet balances
-        const fromWallet = this.wallets.find(
+        const fromWallet = this.wallets().find(
           (w) => w.id === result.fromWalletId
         );
-        const toWallet = this.wallets.find((w) => w.id === result.toWalletId);
+        const toWallet = this.wallets().find((w) => w.id === result.toWalletId);
 
         if (fromWallet && toWallet) {
           fromWallet.balance -= result.amount;
