@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
+
   imports: [
     CommonModule,
     RouterLink,
@@ -53,7 +53,6 @@ export class LoginComponent {
           this.router.navigate(['/main']);
         },
         error: (error) => {
-          console.log(error);
           this.snackBar.open(
             error.message || 'An error occurred during login',
             'Close',

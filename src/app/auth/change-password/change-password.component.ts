@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-change-password',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatCardModule,

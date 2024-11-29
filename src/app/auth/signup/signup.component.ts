@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
-  standalone: true,
+
   imports: [
     CommonModule,
     RouterLink,
