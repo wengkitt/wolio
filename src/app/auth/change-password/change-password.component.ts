@@ -11,15 +11,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-change-password',
 
   imports: [
     CommonModule,
-    RouterLink,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
@@ -27,11 +26,11 @@ import { AuthService } from '../../services/auth.service';
     ReactiveFormsModule,
     MatSnackBarModule,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './change-password.component.html',
+  styleUrl: './change-password.component.scss',
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class ChangePasswordComponent {
+  changePasswordForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -39,22 +38,35 @@ export class LoginComponent {
     private router: Router,
     private snackBar: MatSnackBar
   ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+    this.changePasswordForm = this.fb.group(
+      {
+        newPassword: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: this.passwordMatchValidator }
+    );
+  }
+
+  passwordMatchValidator(g: FormGroup) {
+    return g.get('newPassword')?.value === g.get('confirmPassword')?.value
+      ? null
+      : { mismatch: true };
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.authService.signIn(email, password).subscribe({
+    if (this.changePasswordForm.valid) {
+      const { newPassword } = this.changePasswordForm.value;
+      this.authService.changePasswordAfterReset(newPassword).subscribe({
         next: () => {
-          this.router.navigate(['/main']);
+          this.snackBar.open('Password reset successfully', 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar'],
+          });
+          this.router.navigate(['/']);
         },
         error: (error) => {
           this.snackBar.open(
-            error.message || 'An error occurred during login',
+            error.message || 'Failed to reset password',
             'Close',
             {
               duration: 5000,

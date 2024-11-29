@@ -10,7 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -23,6 +25,7 @@ import { RouterLink } from '@angular/router';
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
@@ -30,10 +33,15 @@ import { RouterLink } from '@angular/router';
 export class SignupComponent {
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
     this.signupForm = this.fb.group(
       {
-        name: ['', Validators.required],
+        name: ['', [Validators.required, Validators.minLength(2)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
@@ -50,8 +58,31 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      console.log(this.signupForm.value);
-      // TODO: Implement signup logic
+      const { email, password, name } = this.signupForm.value;
+      this.authService.signUp(email, password, name).subscribe({
+        next: (response) => {
+          if (response.data.user && !response.data.user.confirmed_at) {
+            this.snackBar.open(
+              'Please check your email to verify your account',
+              'Close',
+              {
+                duration: 5000,
+              }
+            );
+          }
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          this.snackBar.open(
+            error.message || 'An error occurred during signup',
+            'Close',
+            {
+              duration: 5000,
+              panelClass: ['error-snackbar'],
+            }
+          );
+        },
+      });
     }
   }
 }

@@ -1,22 +1,47 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { authGuard } from './guards/auth.guard';
+import { publicGuard } from './guards/public.guard';
 
 export const routes: Routes = [
-  { path: '', component: LandingPageComponent },
+  {
+    path: '',
+    component: LandingPageComponent,
+    canActivate: [publicGuard],
+  },
   {
     path: 'login',
     loadComponent: () =>
       import('./auth/login/login.component').then((m) => m.LoginComponent),
+    canActivate: [publicGuard],
   },
   {
     path: 'signup',
     loadComponent: () =>
       import('./auth/signup/signup.component').then((m) => m.SignupComponent),
+    canActivate: [publicGuard],
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./auth/reset-password/reset-password.component').then(
+        (m) => m.ResetPasswordComponent
+      ),
+    canActivate: [publicGuard],
+  },
+  {
+    path: 'change-password',
+    loadComponent: () =>
+      import('./auth/change-password/change-password.component').then(
+        (m) => m.ChangePasswordComponent
+      ),
+    canActivate: [authGuard],
   },
   {
     path: 'main',
     loadComponent: () =>
       import('./main/main.component').then((m) => m.MainComponent),
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
