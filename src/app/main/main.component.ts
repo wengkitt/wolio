@@ -24,7 +24,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  isSidenavOpen = signal(false);
+  isSidenavOpen = signal(true);
 
   toggleSidenav() {
     this.isSidenavOpen.set(!this.isSidenavOpen());

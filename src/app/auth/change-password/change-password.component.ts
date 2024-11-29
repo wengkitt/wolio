@@ -11,15 +11,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-change-password',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
@@ -27,11 +26,11 @@ import { AuthService } from '../../services/auth.service';
     ReactiveFormsModule,
     MatSnackBarModule,
   ],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss',
+  templateUrl: './change-password.component.html',
+  styleUrl: './change-password.component.scss',
 })
-export class SignupComponent {
-  signupForm: FormGroup;
+export class ChangePasswordComponent {
+  changePasswordForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -39,11 +38,9 @@ export class SignupComponent {
     private router: Router,
     private snackBar: MatSnackBar
   ) {
-    this.signupForm = this.fb.group(
+    this.changePasswordForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.minLength(2)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
+        newPassword: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
       },
       { validators: this.passwordMatchValidator }
@@ -51,30 +48,25 @@ export class SignupComponent {
   }
 
   passwordMatchValidator(g: FormGroup) {
-    return g.get('password')?.value === g.get('confirmPassword')?.value
+    return g.get('newPassword')?.value === g.get('confirmPassword')?.value
       ? null
       : { mismatch: true };
   }
 
   onSubmit() {
-    if (this.signupForm.valid) {
-      const { email, password, name } = this.signupForm.value;
-      this.authService.signUp(email, password, name).subscribe({
-        next: (response) => {
-          if (response.data.user && !response.data.user.confirmed_at) {
-            this.snackBar.open(
-              'Please check your email to verify your account',
-              'Close',
-              {
-                duration: 5000,
-              }
-            );
-          }
-          this.router.navigate(['/login']);
+    if (this.changePasswordForm.valid) {
+      const { newPassword } = this.changePasswordForm.value;
+      this.authService.changePasswordAfterReset(newPassword).subscribe({
+        next: () => {
+          this.snackBar.open('Password reset successfully', 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar'],
+          });
+          this.router.navigate(['/']);
         },
         error: (error) => {
           this.snackBar.open(
-            error.message || 'An error occurred during signup',
+            error.message || 'Failed to reset password',
             'Close',
             {
               duration: 5000,
