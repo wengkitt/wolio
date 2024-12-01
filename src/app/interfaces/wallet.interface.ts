@@ -11,14 +11,20 @@ export interface WalletTransfer {
   id: string;
   user_id: string;
   from_wallet_id: string;
+  from_wallet_name: WalletName;
   to_wallet_id: string;
+  to_wallet_name: WalletName;
   amount: number;
   created_at: string;
 }
 
+export interface WalletName {
+  name: string;
+}
+
 export interface CreateWalletDTO {
   name: string;
-  initial_balance: number;
+  balance: number;
 }
 
 export interface TransferDTO {

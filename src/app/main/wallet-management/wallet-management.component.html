@@ -22,6 +22,10 @@
     </div>
   </div>
 
+  <div *ngIf="wallets().length === 0" class="no-wallets-message">
+    <p>No wallets available. Please create a wallet to get started.</p>
+  </div>
+
   <div class="wallets-grid">
     <mat-card *ngFor="let wallet of wallets()" class="wallet-card">
       <mat-card-content>
@@ -29,7 +33,7 @@
           <mat-icon>account_balance_wallet</mat-icon>
         </div>
         <h2>{{ wallet.name }}</h2>
-        <p class="balance">${{ wallet.balance.toLocaleString() }}</p>
+        <p class="balance">RM{{ wallet.balance.toLocaleString() }}</p>
       </mat-card-content>
     </mat-card>
   </div>
@@ -42,32 +46,39 @@
           <ng-container matColumnDef="date">
             <th mat-header-cell *matHeaderCellDef>Date</th>
             <td mat-cell *matCellDef="let transfer">
-              {{ transfer.date | date }}
+              {{ transfer.created_at | date }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="fromWallet">
             <th mat-header-cell *matHeaderCellDef>From</th>
             <td mat-cell *matCellDef="let transfer">
-              {{ transfer.fromWallet }}
+              {{ transfer.from_wallet_name.name }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="toWallet">
             <th mat-header-cell *matHeaderCellDef>To</th>
-            <td mat-cell *matCellDef="let transfer">{{ transfer.toWallet }}</td>
+            <td mat-cell *matCellDef="let transfer">
+              {{ transfer.to_wallet_name.name }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="amount">
             <th mat-header-cell *matHeaderCellDef>Amount</th>
             <td mat-cell *matCellDef="let transfer">
-              ${{ transfer.amount.toLocaleString() }}
+              RM{{ transfer.amount.toLocaleString() }}
             </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+
+        <!-- Message for no data -->
+        <div *ngIf="dataSource.data.length === 0" class="no-data-message">
+          No transactions found.
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
