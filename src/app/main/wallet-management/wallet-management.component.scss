@@ -1,6 +1,4 @@
 .wallet-management {
-  padding: 24px;
-
   .header {
     display: flex;
     justify-content: space-between;
@@ -84,5 +82,10 @@
     td.mat-cell {
       color: #333;
     }
+  }
+
+  .no-data-message {
+    text-align: center;
+    padding: 1em;
   }
 }
