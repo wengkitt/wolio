@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CreateWalletDialogComponent } from './create-wallet-dialog/create-wallet-dialog.component';
 import { TransferDialogComponent } from './transfer-dialog/transfer-dialog.component';
+import { WalletService } from '../../services/wallet.service';
 
 interface Wallet {
   id: string;
@@ -37,26 +38,17 @@ interface Transfer {
   styleUrl: './wallet-management.component.scss',
 })
 export class WalletManagementComponent {
-  wallets = signal<Wallet[]>([
-    { id: '1', name: 'Main Wallet', balance: 5000 },
-    { id: '2', name: 'Savings', balance: 7500 },
-  ]);
-
-  transfers = signal<Transfer[]>([
-    {
-      id: '1',
-      fromWallet: 'Main Wallet',
-      toWallet: 'Savings',
-      amount: 1000,
-      date: new Date('2024-11-22'),
-    },
-  ]);
+  wallets = signal<Wallet[]>([]);
+  transfers = signal<Transfer[]>([]);
 
   dataSource = new MatTableDataSource<Transfer>(this.transfers());
 
   displayedColumns: string[] = ['date', 'fromWallet', 'toWallet', 'amount'];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private walletService: WalletService
+  ) {}
 
   openCreateWalletDialog() {
     const dialogRef = this.dialog.open(CreateWalletDialogComponent, {
