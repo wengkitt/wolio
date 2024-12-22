@@ -1,9 +1,15 @@
 <nav>
-  <div class="logo-container">
+  <div class="logo-container" (click)="navigate('')">
     <img src="wolio_logo.png" alt="Wolio Logo" class="logo" />
     <p>Wolio</p>
   </div>
+  @if(!isLoginOrSignUpPage()){
   <div class="action-container">
-    <p-button label="Log In" variant="text" />
+    <p-button
+      label="Log In"
+      variant="text"
+      (click)="navigate('login')"
+    ></p-button>
   </div>
+  }
 </nav>
