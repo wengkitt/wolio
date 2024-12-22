@@ -1,0 +1,28 @@
+<section class="hero">
+  <div class="hero-content">
+    <h1>Take Control of Your Finances with <span>Wolio</span></h1>
+    <p class="subtitle">
+      All-in-one financial management solution for tracking expenses,
+      investments, and more
+    </p>
+    <div class="action-container">
+      <p-button label="Get Started" severity="primary" />
+    </div>
+  </div>
+</section>
+<section class="features">
+  <div class="features-grid">
+    @for (feature of features; track feature.key) {
+    <p-card class="feature-card">
+      <ng-template #title>
+        <div class="title-container">
+          <i [class]="feature.icon" class="icon-size"></i>{{ feature.title }}
+        </div>
+      </ng-template>
+      <p>
+        {{ feature.description }}
+      </p>
+    </p-card>
+    }
+  </div>
+</section>

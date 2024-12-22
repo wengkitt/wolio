@@ -1,0 +1,36 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  padding-left: 2em;
+  padding-right: 2em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  justify-content: space-between;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    height: 50px;
+    width: 50px;
+  }
+
+  p {
+    font-size: 30px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    margin-left: 5px;
+  }
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
