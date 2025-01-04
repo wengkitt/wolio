@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { FeatureModel } from '../../../model/landing-page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,6 +11,8 @@ import { FeatureModel } from '../../../model/landing-page';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent {
+  constructor(private router: Router) {}
+
   features: FeatureModel[] = [
     {
       key: 1,
@@ -43,4 +46,8 @@ export class LandingPageComponent {
       icon: 'pi pi-calculator',
     },
   ];
+
+  navigate(route: string) {
+    this.router.navigate([`/${route}`]);
+  }
 }
